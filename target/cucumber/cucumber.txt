@@ -1,0 +1,28 @@
+
+@bookerAPI @deleteBooking @deleteBookingIDs
+Scenario: To delete a booking                                                         # src/test/resources/features/DeleteBooking.feature:10
+  Given user has access to endpoint "/auth"                                           # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userHasAccessToEndpoint(java.lang.String)
+  When user creates a auth token with credential "admin" & "password123"              # com.api.stepdefinition.UpdateBookingStepdefinition.userCreatesAAuthTokenWithCredential(java.lang.String,java.lang.String)
+  Then user should get the response code 200                                          # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
+  Given user has access to endpoint "/booking"                                        # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userHasAccessToEndpoint(java.lang.String)
+  And user makes a request to view booking IDs                                        # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userMakesARequestToViewBookingIDs()
+  When user makes a request to delete booking with basic auth "admin" & "password123" # com.api.stepdefinition.DeleteBookingStepdefinition.userMakesARequestToDeleteBookingWithBasicAuth(java.lang.String,java.lang.String)
+  Then user should get the response code 201                                          # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
+
+@bookerAPI @deleteBooking @e2eTest
+Scenario Outline: To perform a CURD operation on restful-booker                      # src/test/resources/features/DeleteBooking.feature:37
+  Given user has access to endpoint "/auth"                                          # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userHasAccessToEndpoint(java.lang.String)
+  When user creates a auth token with credential "admin" & "password123"             # com.api.stepdefinition.UpdateBookingStepdefinition.userCreatesAAuthTokenWithCredential(java.lang.String,java.lang.String)
+  Then user should get the response code 200                                         # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
+  Given user has access to endpoint "/booking"                                       # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userHasAccessToEndpoint(java.lang.String)
+  When user creates a booking                                                        # com.api.stepdefinition.CreateBookingStepdefinition.userCreatesABooking(io.cucumber.datatable.DataTable)
+  Then user should get the response code 200                                         # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "createBookingSchema.json"        # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userValidatesResponseWithJSONSchema(java.lang.String)
+  And user updates the details of a booking                                          # com.api.stepdefinition.UpdateBookingStepdefinition.userUpdatesABooking(io.cucumber.datatable.DataTable)
+  And user should get the response code 200                                          # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "bookingDetailsSchema.json"       # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userValidatesResponseWithJSONSchema(java.lang.String)
+  And user makes a request to view details of a booking ID                           # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userMakesARequestToViewDetailsOfBookingID()
+  And user should get the response code 200                                          # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "bookingDetailsSchema.json"       # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userValidatesResponseWithJSONSchema(java.lang.String)
+  And user makes a request to delete booking with basic auth "admin" & "password123" # com.api.stepdefinition.DeleteBookingStepdefinition.userMakesARequestToDeleteBookingWithBasicAuth(java.lang.String,java.lang.String)
+  And user should get the response code 201                                          # com.api.stepdefinition.ViewBookingDetailsStepdefinition.userShpuldGetTheResponseCode(java.lang.Integer)
